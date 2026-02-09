@@ -20,3 +20,7 @@ rollouts:
 
 environments:
   staging: true
+
+notifications:
+  slack:
+    enabled: true
