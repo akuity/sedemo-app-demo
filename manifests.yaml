@@ -110,19 +110,22 @@ spec:
         app: "sedemo-app-demo-app"
     spec:
       containers:
-        - image: "ghcr.io/akuity/sedemo-app-demo:5"
+        - image: "ghcr.io/akuity/sedemo-app-demo:6"
           name: "sedemo-app-demo-app"
           ports:
             - containerPort: 80
           env:
             - name: SEMVER
-              value: "5"
+              value: "6"
             - name: STAGE
               value: staging
             - name: NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            
+            - name: S3_BUCKET_NAME
+              value: "template-dev-bucket"
             
           resources:
             limits:
