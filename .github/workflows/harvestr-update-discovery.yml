@@ -21,8 +21,37 @@ jobs:
           HARVEST_ID=$(echo "${{ steps.find_comment.outputs.comment-body }}" | sed -e 's/.*list\/\(.*\))/\1/p')
           echo "Found ID: ${HARVEST_ID}"
           echo "Action: ${{ github.event.action }}"
+
+          function updateState() {
+            local state="$1"
+            echo "Updating Harvestr item ${HARVEST_ID} to state: ${state}"
+            curl -X POST "https://rest.harvestr.io/v1/discovery/${HARVEST_ID}" \
+              -H "X-Harvestr-Private-App-Token: ${{ secrets.HARVESTR_API_KEY }}" \
+              -H "Content-Type: application/json" \
+              -d "{\"discoveryStateId\": \"${state}\"}"
+          }
+
+          # Disco States from Harvestr 
           # Planned eRnRKMd0dVd
           # New ga3xFjA7FHO
           # Not for now 0PtZSDdq2pZ
           # Shipped HKxdJwUCJKQ
           # In Progress z5tLYR4dHDW
+
+
+          case "${{ github.event.action }}" in
+            "assigned")
+                # In Progress z5tLYR4dHDW
+                updateState "z5tLYR4dHDW" ;;
+            "closed")
+                # Shipped HKxdJwUCJKQ
+                updateState "HKxdJwUCJKQ" ;;
+            "milestoned")
+                # Planned eRnRKMd0dVd
+                updateState "eRnRKMd0dVd" ;;
+            "demilestoned")
+                # New ga3xFjA7FHO
+                updateState "ga3xFjA7FHO" ;;
+          esac
+
+          echo "Harvestr item ${HARVEST_ID} updated successfully."
