@@ -17,6 +17,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body-includes: "Issue was linked to Harvestr Discovery"
       - run: |
-          echo ${{ steps.find_comment.outputs.comment-body }}
-      
+          echo "${{ steps.find_comment.outputs.comment-body }}"
+          HARVEST_ID=$(echo "${{ steps.find_comment.outputs.comment-body }}" | sed -e 's/.*list\/\(.*\))/\1/p')
+          echo "HARVEST_ID=${HARVEST_ID}" >> $GITHUB_ENV
         

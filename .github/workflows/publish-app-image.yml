@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '.github/workflows/harvestr-update-discovery.yml'
 permissions:
   packages: write
   attestations: write
