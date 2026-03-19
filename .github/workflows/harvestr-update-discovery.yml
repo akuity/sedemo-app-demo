@@ -25,7 +25,7 @@ jobs:
           function updateState() {
             local state="$1"
             echo "Updating Harvestr item ${HARVEST_ID} to state: ${state}"
-            curl -X POST "https://rest.harvestr.io/v1/discovery/${HARVEST_ID}" \
+            curl -X PATCH "https://rest.harvestr.io/v1/discovery/${HARVEST_ID}" \
               -H "X-Harvestr-Private-App-Token: ${{ secrets.HARVESTR_API_KEY }}" \
               -H "Content-Type: application/json" \
               -d "{\"discoveryStateId\": \"${state}\"}"
