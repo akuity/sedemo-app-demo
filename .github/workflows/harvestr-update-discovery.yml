@@ -16,7 +16,11 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body-includes: "Issue was linked to Harvestr Discovery"
-      - run: |
+      - name: Update Harvestr Discovery
+        shell: bash
+        env:
+          HARVESTR_API_KEY: ${{ secrets.HARVESTR_API_KEY }}
+        run: |          
           echo "DEBUG: ${{ steps.find_comment.outputs.comment-body }}"
           HARVEST_ID=$(echo "${{ steps.find_comment.outputs.comment-body }}" | sed -e 's/.*list\/\(.*\))/\1/p')
           echo "Found ID: ${HARVEST_ID}"
@@ -24,10 +28,11 @@ jobs:
 
           function updateState() {
             local state="$1"
-            echo "Updating Harvestr item ${HARVEST_ID} to state: ${state}"
+            echo "Updating Harvestr item ${HARVEST_ID} to state: ${state} via https://rest.harvestr.io/v1/discovery/${HARVEST_ID}"
             curl -X PATCH "https://rest.harvestr.io/v1/discovery/${HARVEST_ID}" \
-              -H "X-Harvestr-Private-App-Token: ${{ secrets.HARVESTR_API_KEY }}" \
+              -H "X-Harvestr-Private-App-Token: ${HARVESTR_API_KEY}" \
               -H "Content-Type: application/json" \
+              -H 'Accept: application/json' \
               -d "{\"discoveryStateId\": \"${state}\"}"
           }
 
