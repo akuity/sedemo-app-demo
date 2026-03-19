@@ -20,9 +20,10 @@ jobs:
         shell: bash
         env:
           HARVESTR_API_KEY: ${{ secrets.HARVESTR_API_KEY }}
-        run: |          
-          echo "DEBUG: ${{ steps.find_comment.outputs.comment-body }}"
-          HARVEST_ID=$(echo "${{ steps.find_comment.outputs.comment-body }}" | sed -e 's/.*list\/\(.*\))/\1/p')
+          COMMENT_BODY: ${{ steps.find_comment.outputs.comment-body }}
+        run: |
+          echo "DEBUG: ${COMMENT_BODY}"
+          HARVEST_ID=$(echo "${COMMENT_BODY}" | sed -n 's/.*list\/\(.*\))/\1/p')
           echo "Found ID: ${HARVEST_ID}"
           echo "Action: ${{ github.event.action }}"
 
