@@ -1,0 +1,22 @@
+name: Harvestr Updates (Feedback)
+
+on:
+  issues:
+    types: [assigned, closed, milestoned, demilestoned]
+
+
+
+jobs:
+  update-harvestr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find comment matching a regex pattern
+        uses: peter-evans/find-comment@v3
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body-includes: "Issue was linked to Harvestr Discovery"
+      - run: |
+          echo ${{ steps.find_comment.outputs.comment-body }}
+      
+        
