@@ -15,7 +15,6 @@ image:
 ingress:
   custom_prefix: demo
 
-
 services:
   s3:
     enabled: true
