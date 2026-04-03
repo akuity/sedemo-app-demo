@@ -2,6 +2,7 @@ name: Harvestr Updates (Feedback)
 
 on:
   issues:
+    # listen for key events that indicate a change in the issue's lifecycle
     types: [assigned, closed, milestoned, demilestoned]
 
 
@@ -11,12 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Find comment matching a regex pattern
-        uses: peter-evans/find-comment@v3
+        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
         id: find_comment
         with:
           issue-number: ${{ github.event.issue.number }}
           body-includes: "Issue was linked to Harvestr Discovery"
+      # if updated issue is linked Harvestr Discovery, update the discovery state based on the issue lifecycle event
       - name: Update Harvestr Discovery
+        if: steps.find_comment.outputs.comment-found == 'true'
         shell: bash
         env:
           HARVESTR_API_KEY: ${{ secrets.HARVESTR_API_KEY }}
@@ -30,7 +33,7 @@ jobs:
           function updateState() {
             local state="$1"
             echo "Updating Harvestr item ${HARVEST_ID} to state: ${state} via https://rest.harvestr.io/v1/discovery/${HARVEST_ID}"
-            curl -LX PATCH "https://rest.harvestr.io/v1/discovery/${HARVEST_ID}" \
+            curl --proto "=https"-LX PATCH "https://rest.harvestr.io/v1/discovery/${HARVEST_ID}" \
               -H "X-Harvestr-Private-App-Token: ${HARVESTR_API_KEY}" \
               -H "Content-Type: application/json" \
               -H 'Accept: application/json' \
