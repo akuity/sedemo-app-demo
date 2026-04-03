@@ -33,7 +33,7 @@ jobs:
           function updateState() {
             local state="$1"
             echo "Updating Harvestr item ${HARVEST_ID} to state: ${state} via https://rest.harvestr.io/v1/discovery/${HARVEST_ID}"
-            curl --proto "=https"-LX PATCH "https://rest.harvestr.io/v1/discovery/${HARVEST_ID}" \
+            curl --proto "=https" -LX PATCH "https://rest.harvestr.io/v1/discovery/${HARVEST_ID}" \
               -H "X-Harvestr-Private-App-Token: ${HARVESTR_API_KEY}" \
               -H "Content-Type: application/json" \
               -H 'Accept: application/json' \
