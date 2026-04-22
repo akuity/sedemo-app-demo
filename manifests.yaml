@@ -127,13 +127,6 @@ spec:
             - name: S3_BUCKET_NAME
               value: "sedemo-app-demo-dev-bucket"
             
-          resources:
-            limits:
-              memory: 64Mi
-              cpu: 1m
-            requests:
-              memory: 64Mi
-              cpu: 1m
   minReadySeconds: 30
   revisionHistoryLimit: 3
   strategy:
