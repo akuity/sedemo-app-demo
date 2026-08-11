@@ -1,4 +1,15 @@
 ---
+# Source: apps-template/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 'sedemo-app-demo-config'
+  labels:
+    app.kubernetes.io/name: 'sedemo-app-demo'
+data:
+  application.name: 'sedemo-app-demo'  
+  more.info: 'This is a configmap for sedemo-app-demo application'
+---
 # Source: apps-template/templates/service.yaml
 apiVersion: v1
 kind: Service
