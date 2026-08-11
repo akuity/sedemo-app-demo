@@ -8,8 +8,7 @@ metadata:
     app.kubernetes.io/name: 'sedemo-app-demo'
 data:
   application.name: 'sedemo-app-demo'  
-  more:
-    info: 'This is a configmap for sedemo-app-demo application'
+  more.info: 'This is a configmap for sedemo-app-demo application'
 ---
 # Source: apps-template/templates/service.yaml
 apiVersion: v1
