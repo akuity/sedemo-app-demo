@@ -121,13 +121,13 @@ spec:
         app: "sedemo-app-demo-app"
     spec:
       containers:
-        - image: "ghcr.io/akuity/sedemo-app-demo:9"
+        - image: "ghcr.io/akuity/sedemo-app-demo:15"
           name: "sedemo-app-demo-app"
           ports:
             - containerPort: 80
           env:
             - name: SEMVER
-              value: "9"
+              value: "15"
             - name: STAGE
               value: staging
             - name: NAMESPACE
