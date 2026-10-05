@@ -1,4 +1,15 @@
 ---
+# Source: apps-template/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 'sedemo-app-demo-config'
+  labels:
+    app.kubernetes.io/name: 'sedemo-app-demo'
+data:
+  application.name: 'sedemo-app-demo'  
+  more.info: 'This is a configmap for sedemo-app-demo application'
+---
 # Source: apps-template/templates/service.yaml
 apiVersion: v1
 kind: Service
@@ -110,13 +121,13 @@ spec:
         app: "sedemo-app-demo-app"
     spec:
       containers:
-        - image: "ghcr.io/akuity/sedemo-app-demo:9"
+        - image: "ghcr.io/akuity/sedemo-app-demo:15"
           name: "sedemo-app-demo-app"
           ports:
             - containerPort: 80
           env:
             - name: SEMVER
-              value: "9"
+              value: "15"
             - name: STAGE
               value: prod
             - name: NAMESPACE
