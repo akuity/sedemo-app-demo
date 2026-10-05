@@ -33,7 +33,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         id: push
         with:
           push: true
@@ -68,4 +68,4 @@ jobs:
           delete-ghost-images: true
           delete-orphaned-images: true
           delete-untagged: true
-          packages: ${{ env.IMAGE_NAME}}
+          packages: ${{ replace(github.repository, format('{0}/', github.repository_owner), '') }}
