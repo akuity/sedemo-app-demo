@@ -5,7 +5,7 @@ image:
   # If using default workflow, this will be set to ghcr.io/<github_org>/<repo_name>
   repository: ghcr.io/akuity/sedemo-app-demo
   # Default use of this ghcr publishing workflow will use incrmental build number as tag
-  selectionStrategy: Lexical
+  selectionStrategy: SemVer
   # if useing digest stragey, uncomment next line and comment tagRegex line
   #tag: latest
   tagRegex: '^\d*$'
