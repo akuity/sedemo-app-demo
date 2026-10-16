@@ -62,6 +62,10 @@ spec:
             name: svc-stable
             port:
               number: 80
+  tls:
+    - hosts:
+        - "dev.demo.akpdemoapps.link"
+      secretName: tls-secret
 ---
 # Source: apps-template/templates/analysis.yaml
 apiVersion: argoproj.io/v1alpha1
