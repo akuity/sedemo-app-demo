@@ -62,6 +62,10 @@ spec:
             name: svc-stable
             port:
               number: 80
+  tls:
+    - hosts:
+        - "prod.demo.akpdemoapps.link"
+      secretName: tls-secret
 ---
 # Source: apps-template/templates/analysis.yaml
 apiVersion: argoproj.io/v1alpha1
@@ -121,13 +125,13 @@ spec:
         app: "sedemo-app-demo-app"
     spec:
       containers:
-        - image: "ghcr.io/akuity/sedemo-app-demo:15"
+        - image: "ghcr.io/akuity/sedemo-app-demo:16"
           name: "sedemo-app-demo-app"
           ports:
             - containerPort: 80
           env:
             - name: SEMVER
-              value: "15"
+              value: "16"
             - name: STAGE
               value: prod
             - name: NAMESPACE
